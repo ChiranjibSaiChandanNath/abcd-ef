@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malware Analysis Sandbox</title>
+
+    <!-- Google Fonts: Outfit (headings) & Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- CSS loaded via Flask static folder -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- Ambient animated background blobs -->
+    <div class="ambient-blob blob-1" aria-hidden="true"></div>
+    <div class="ambient-blob blob-2" aria-hidden="true"></div>
+
+    <!-- Main App Container -->
+    <div class="app-wrapper">
+        <header>
+            <div class="header-logo">
+                <i class="ph-fill ph-shield-check shield-icon"></i>
+                <div class="header-text">
+                    <h1>Malware Sandbox</h1>
+                    <p>Advanced Heuristic & Signature Engine</p>
+                </div>
+            </div>
+            <div class="header-status">
+                <button class="btn btn-outline" style="margin-right: 15px; padding: 6px 12px; font-size: 14px;" onclick="toggleHistory()">
+                    <i class="ph-bold ph-clock-counter-clockwise" style="margin-right: 4px;"></i> View History
+                </button>
+                <span class="status-dot"></span> System Online
+            </div>
+        </header>
+
+        <main class="container">
+            
+            <!-- History Overlay Section (Hidden by Default) -->
+            <section class="history-section" id="historySection" style="display: none;">
+                <div class="card full-width">
+                    <div class="card-header" style="justify-content: space-between;">
+                        <h2 style="display:flex; align-items:center;"><i class="ph-duotone ph-clock" style="margin-right: 8px;"></i> Archive History</h2>
+                        <button class="btn btn-outline" onclick="toggleHistory()"><i class="ph-bold ph-x" style="margin-right:4px;"></i> Close</button>
+                    </div>
+                    <div class="table-responsive" style="margin-top: 15px;">
+                        <table style="width:100%; text-align:left; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-muted);">
+                                    <th style="padding: 12px;">Timestamp</th>
+                                    <th style="padding: 12px;">SHA-256 Hash</th>
+                                    <th style="padding: 12px;">Risk</th>
+                                    <th style="padding: 12px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <!-- JS Injects here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-card" id="uploadCard">
+                    <i class="ph-duotone ph-folder-open upload-icon"></i>
+                    <h2>Secure File Upload</h2>
+                    <p class="subtitle">Drag & Drop or click to browse</p>
+                    <p class="supported-types">EXE · PDF · DOCX · JS · BAT · PY · ZIP · TXT</p>
+                    
+                    <div class="file-input-wrapper">
+                        <label for="fileInput" class="custom-file-label" id="fileLabel">
+                            <span id="fileLabelText">Choose a file...</span>
+                        </label>
+                        <input type="file" id="fileInput" accept=".exe,.pdf,.docx,.js,.bat,.py,.zip,.txt">
+                    </div>
+
+                    <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeFile()">
+                        <i class="ph-bold ph-lightning btn-icon"></i> Analyze Now
+                    </button>
+                </div>
+            </section>
+
+            <!-- Loading Spinner -->
+            <div class="loader" id="loader" role="status" aria-live="polite">
+                <div class="spinner"></div>
+                <p id="loaderStatus">Executing static analysis sequence...</p>
+                <div class="loading-bar-container">
+                    <div class="loading-progress" id="loadingProgress" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Results Dashboard Section -->
+            <section class="results-dashboard" id="results">
+                <!-- JavaScript will inject grid template components here -->
+            </section>
+
+        </main>
+    </div>
+
+    <!-- JavaScript loaded via Flask static folder -->
+    <script src="{{ url_for('static', filename='js/app.js') }}?v=3"></script>
+</body>
+</html>
