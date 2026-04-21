@@ -1,15 +1,12 @@
-import os
 from backend.app import create_app
 
 app = create_app()
 
 if __name__ == '__main__':
-    # 1. Get the port from Render's environment, default to 5000 for local testing
-    port = int(os.environ.get("PORT", 5000))
-    
     print("Starting Malware Analysis Sandbox...")
-    print(f"Server is initializing on port {port}...")
+    print("Frontend and Backend are running together.")
+    print("Access the application at: http://127.0.0.1:5000")
 
-    # 2. host='0.0.0.0' is required for Render
-    # 3. debug=False is safer for a live website
-    app.run(host='0.0.0.0', port=port, debug=False)
+
+    app.run(host='127.0.0.1', debug=True, port=5000)
+
